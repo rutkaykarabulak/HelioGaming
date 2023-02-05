@@ -22,6 +22,7 @@
 		public const string AddressTable = "Address";
 		public const string CompanyTable = "Company";
 		public const string PersonTable = "Person";
+		public const string PostgreConnectionString = "HelioGamingPostgreSQL";
 		#endregion
 	}
 }
