@@ -1,4 +1,14 @@
+using HelioGaming.Models.EntityModels;
+using HelioGaming.Utils;
+using Microsoft.EntityFrameworkCore;
+using System.Reflection.Metadata;
+
 var builder = WebApplication.CreateBuilder(args);
+
+// inject postgre
+builder.Services.AddDbContext<EFDataContext>(o =>
+o.UseNpgsql(builder.Configuration.GetConnectionString(Constants.PostgreConnectionString))
+);
 
 // Add services to the container.
 
