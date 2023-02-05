@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using HelioGaming.Utils;
+using System.ComponentModel;
 
 namespace HelioGaming.Models.EntityModels
 {
@@ -28,6 +29,7 @@ namespace HelioGaming.Models.EntityModels
 		public string Number { get; set; } = string.Empty;
 
 		public string PhoneNumber { get; set; } = string.Empty;
+		public int EmployeeCount { get; set; } = 0;
 
 	}
 }

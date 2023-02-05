@@ -17,8 +17,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-    <Folder Include="Models\DbModels\" />
+    <Folder Include="Api\Controllers\" />
+    <Folder Include="Api\IServices\" />
+    <Folder Include="Api\Services\" />
 	<Folder Include="Utils\" />
   </ItemGroup>
 
