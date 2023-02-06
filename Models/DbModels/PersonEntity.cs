@@ -10,7 +10,7 @@ namespace HelioGaming.Models.DbModels
 	/// <summary>
 	/// Representation of person object in database
 	/// </summary>
-	public class Person
+	public class PersonEntity
 	{
 		/// <summary>
 		/// Id of the person
@@ -32,12 +32,12 @@ namespace HelioGaming.Models.DbModels
 		/// <summary>
 		/// Address of the person
 		/// </summary>
-		public virtual Address Address { get; set; }
+		public virtual AddressEntity Address { get; set; }
 
 		/// <summary>
 		/// Company of the person
 		/// </summary>
-		public virtual Company Company { get; set; }
+		public virtual CompanyEntity Company { get; set; }
 
 		/// <summary>
 		/// Gender of the person

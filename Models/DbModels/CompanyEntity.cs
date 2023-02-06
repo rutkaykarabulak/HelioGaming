@@ -8,7 +8,7 @@ namespace HelioGaming.Models.DbModels
 	/// <summary>
 	/// Representation of company object in database 
 	/// </summary>
-	public class Company
+	public class CompanyEntity
 	{
 		/// <summary>
 		/// Id of the company
@@ -31,7 +31,7 @@ namespace HelioGaming.Models.DbModels
 		/// <summary>
 		/// Address of the company
 		/// </summary>
-		public virtual Address Address { get; set; }
+		public virtual AddressEntity Address { get; set; }
 
 		/// <summary>
 		/// Number of company

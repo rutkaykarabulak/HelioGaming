@@ -9,7 +9,7 @@ namespace HelioGaming.Models.DbModels
 	/// <summary>
 	/// Representation of address object in database
 	/// </summary>
-	public class Address
+	public class AddressEntity
 	{
 		/// <summary>
 		/// Id of the address
