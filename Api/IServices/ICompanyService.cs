@@ -1,5 +1,6 @@
 ﻿using HelioGaming.Models;
 using HelioGaming.Models.DbModels;
+using HelioGaming.Models.EntityModels;
 
 namespace HelioGaming.Api.IServices
 {
@@ -13,7 +14,7 @@ namespace HelioGaming.Api.IServices
 		/// </summary>
 		/// <param name="id"></param>
 		/// <returns>Company Entity if there is a record with a given id, null otherwise.</returns>
-		public abstract Task<CompanyEntity> Get(int id);
+		public abstract Task<CompanyEntity?> Get(int id);
 
 		/// <summary>
 		/// Gets all the company record in database
@@ -26,7 +27,7 @@ namespace HelioGaming.Api.IServices
 		/// </summary>
 		/// <param name="company"></param>
 		/// <returns>Objects that were created</returns>
-		public abstract Task<CompanyEntity> Create(CompanyEntity company);
+		public abstract Company Create(CompanyEntity company);
 
 		//public abstract Task<CompanyEntity> Update();  TODO with put object
 
@@ -35,6 +36,8 @@ namespace HelioGaming.Api.IServices
 		/// </summary>
 		/// <param name="id"></param>
 		/// <returns>True, if removal is successfull, false otherwise</returns>
-		public abstract Task<bool> Remove(int id);
+		public abstract bool Remove(int id);
+
+		// Update TODO
 	}
 }

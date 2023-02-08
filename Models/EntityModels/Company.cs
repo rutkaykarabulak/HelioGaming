@@ -24,7 +24,7 @@ namespace HelioGaming.Models.EntityModels
 		public DateTime DateOfRegistration { get; set; }
 
 		[ForeignKey("AddressId")]
-		public virtual Address Address { get; set; }
+		public  int AddressId { get; set; }
 
 		public string Number { get; set; } = string.Empty;
 

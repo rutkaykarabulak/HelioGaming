@@ -24,10 +24,10 @@ namespace HelioGaming.Models.EntityModels
 		public string BirthPlace { get; set; } = string.Empty;
 
 		[ForeignKey("AddressId")]
-		public virtual Address Address { get; set; }
+		public int AddressId { get; set; }
 		
 		[ForeignKey("CompanyId")]
-		public virtual Company Company { get; set; }
+		public int CompanyId { get; set; }
 
 		[DefaultValue(2)]
 		public Gender Gender { get; set; }

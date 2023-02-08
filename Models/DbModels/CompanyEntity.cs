@@ -19,7 +19,6 @@ namespace HelioGaming.Models.DbModels
 		/// Name of the company
 		/// </summary>
 		[Required]
-		[RegularExpression(Constants.regexOnlyLettersNumbersAndDashes, ErrorMessage = Constants.regexOnlyLettersNumbersAndDashesErr)]
 		public string Name { get; set; } = string.Empty;
 		/// <summary>
 		/// Registration date of company
@@ -31,7 +30,12 @@ namespace HelioGaming.Models.DbModels
 		/// <summary>
 		/// Address of the company
 		/// </summary>
-		public virtual AddressEntity Address { get; set; }
+		public int AddressId { get; set; }
+
+		/// <summary>
+		/// Address entity of the company
+		/// </summary>
+		public Address? Address { get; set; }
 
 		/// <summary>
 		/// Number of company
