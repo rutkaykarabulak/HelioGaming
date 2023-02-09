@@ -32,12 +32,22 @@ namespace HelioGaming.Models.DbModels
 		/// <summary>
 		/// Address of the person
 		/// </summary>
-		public virtual AddressEntity Address { get; set; }
+		public int AddressId { get; set; }
+
+		/// <summary>
+		/// Address entity of the person
+		/// </summary>
+		public Address? Address { get; set; }
 
 		/// <summary>
 		/// Company of the person
 		/// </summary>
-		public virtual CompanyEntity Company { get; set; }
+		public int CompanyId { get; set; }
+
+		/// <summary>
+		/// Company entity of the person
+		/// </summary>
+		public Company? Company { get; set; }
 
 		/// <summary>
 		/// Gender of the person
