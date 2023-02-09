@@ -88,12 +88,12 @@ namespace HelioGamingUnit
 				new PersonEntity()
 				{
 					Id=1,
-					FullName = "Brian Helio Game",
-					BirthPlace = "Malta",
+					FullName = "Rutkay Karabulak",
+					BirthPlace = "Diyarbakir",
 					AddressId = 1,
 					Address = ToAddress(_addresses.ElementAt(3)),
 					Company = ToCompany(_companies.ElementAt(1)),
-					CompanyId = 2,
+					CompanyId = 1,
 					Gender = HelioGaming.Utils.CommonTypes.Gender.Male
 				},
 				new PersonEntity()
@@ -101,7 +101,7 @@ namespace HelioGamingUnit
 					Id= 2,
 					FullName = "Brian Helio Game",
 					BirthPlace = "Malta",
-					AddressId = 1,
+					AddressId = 2,
 					Address = ToAddress(_addresses.ElementAt(3)),
 					Company = ToCompany(_companies.ElementAt(1)),
 					CompanyId = 2,

@@ -1,6 +1,7 @@
 ﻿using HelioGaming.Api.Controllers;
 using HelioGaming.Api.IServices;
 using HelioGaming.Models.DbModels;
+using HelioGaming.Models.GET;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -22,7 +23,7 @@ namespace HelioGamingUnit
 		}
 		
 		/// <summary>
-		/// HttpGet("All") tests
+		/// HttpGet("All") should return ok
 		/// </summary>
 
 		[Fact]
@@ -64,7 +65,7 @@ namespace HelioGamingUnit
 
 			// Assert
 
-			Assert.IsType<NotFoundResult>(notFoundResult);
+			Assert.IsType<NotFoundObjectResult>(notFoundResult.Result);
 		}
 
 		/// <summary>
@@ -79,7 +80,7 @@ namespace HelioGamingUnit
 			// Act
 			var okResult = _controller.Get(testId);
 			// Assert
-			Assert.IsType<OkObjectResult>(okResult as IActionResult);
+			Assert.IsType<OkObjectResult>(okResult.Result);
 		}
 
 		/// <summary>
@@ -92,10 +93,18 @@ namespace HelioGamingUnit
 			// Arrange
 			var testId = 1;
 			// Act
-			var okResult = _controller.Get(testId) as IActionResult;
+			var okResult = _controller.Get(testId);
 			// Assert
-			Assert.IsType<PersonEntity>(okResult);
-			Assert.Equal(testId, (okResult as PersonEntity).Id);
+
+			var result = okResult.Result as OkObjectResult;
+
+			Assert.IsType<PersonEntity>(result.Value);
+
+			PersonEntity person = result.Value as PersonEntity;
+
+			Assert.Equal(testId, person.Id);
+
+
 		}
 
 		/// <summary>
@@ -119,7 +128,7 @@ namespace HelioGamingUnit
 
 			var okResult = _controller.Create(personEntity);
 
-			Assert.IsType<OkResult>(okResult);
+			Assert.IsType<OkObjectResult>(okResult);
 		}
 
 		/// <summary>
@@ -137,7 +146,7 @@ namespace HelioGamingUnit
 
 			// assert
 
-			Assert.IsType<NotFoundResult>(notFound);
+			Assert.IsType<NotFoundObjectResult>(notFound);
 		}
 
 		/// <summary>
@@ -155,8 +164,42 @@ namespace HelioGamingUnit
 			// assert
 			Assert.IsType<OkObjectResult>(okResult);
 		}
+		/// <summary>
+		/// When we search for an user who doesn't exist, it should return not found
+		/// </summary>
+		[Fact]
+		public void Search_For_NonExistPerson_ShouldReturnNotFound()
+		{
+			// arrange 
+			PersonEntitySearch get = new()
+			{
+				FullName = "Not exist"
+			};
 
+			// Act
+			var notFound = _controller.Search(get);
+			// Assert
+			Assert.IsType<NotFoundObjectResult>(notFound);
+		}
 
+		[Fact]
+		
+		public void Search_For_ExistingPerson_ShouldReturnPersons()
+		{
+			// arrange
+			PersonEntitySearch get = new()
+			{
+				FullName = "Rutkay"
+			};
 
+			// act
+			var okResult = _controller.Search(get) as OkObjectResult;
+
+			List<PersonEntity> persons = okResult.Value as List<PersonEntity>;
+
+			// Assert
+			Assert.IsType<List<PersonEntity>>(persons);
+			Assert.True(persons.Count() > 0);
+		}
 	}
 }
