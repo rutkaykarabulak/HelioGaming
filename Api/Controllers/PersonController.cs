@@ -50,6 +50,11 @@ namespace HelioGaming.Api.Controllers
 		{
 			List<PersonEntity?> persons = personService.Search(get);
 
+			if (persons.Count() == 0)
+			{
+				return NotFound("There is no person like that");
+			}
+
 			return Ok(persons);
 		}
 
