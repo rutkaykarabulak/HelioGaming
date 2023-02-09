@@ -12,7 +12,7 @@ namespace HelioGaming.Api.Controllers
 	[ApiController]
 	public class PersonController : ControllerBase
 	{
-		private PersonService personService;
+		private IPersonService personService;
 
 		[HttpGet]
 		public async Task<IActionResult> Get(int id)
@@ -100,7 +100,11 @@ namespace HelioGaming.Api.Controllers
 		}
 		public PersonController(EFDataContext postgreSQL)
 		{
-			personService = new(postgreSQL);
+			personService = new PersonService(postgreSQL);
+		}
+		public PersonController(IPersonService service)
+		{
+			personService = service;
 		}
 	}
 }
