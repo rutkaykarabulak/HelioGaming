@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\HelioGaming\HelioGaming.csproj" />
+    <ProjectReference Include="..\HelioGaming.csproj" />
   </ItemGroup>
 
 </Project>
