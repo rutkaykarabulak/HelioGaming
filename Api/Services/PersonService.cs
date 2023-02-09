@@ -1,8 +1,14 @@
 ﻿using HelioGaming.Api.IServices;
 using HelioGaming.Models.DbModels;
 using HelioGaming.Models.EntityModels;
+using HelioGaming.Models.GET;
 using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
+using Microsoft.EntityFrameworkCore.Query.Internal;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
 
 namespace HelioGaming.Api.Services
 {
@@ -16,7 +22,30 @@ namespace HelioGaming.Api.Services
 
 		public Person Create(PersonEntity person)
 		{
-			throw new NotImplementedException();
+			Person entity = new()
+			{
+				FullName = person.FullName,
+				BirthPlace = person.BirthPlace,
+				CompanyId = person.CompanyId,
+				AddressId = person.AddressId,
+				Gender = person.Gender
+			};
+
+			if (person.CompanyId != 0)
+			{
+				Company? company = _postgreSQL.Companies.Find(person.CompanyId);
+
+				if (company != null)
+				{
+					company.EmployeeCount++;
+					_postgreSQL.Update(company);
+				}
+			}
+
+			_postgreSQL.Add(entity);
+			_postgreSQL.SaveChanges();
+
+			return entity;
 		}
 
 		public async Task<PersonEntity?> Get(int id)
@@ -76,6 +105,64 @@ namespace HelioGaming.Api.Services
 			_postgreSQL.SaveChanges();
 
 			return true;
+		}
+
+		public List<PersonEntity?> Search(PersonEntitySearch get)
+		{
+			List<PersonEntity> persons = GetAll().ToList();
+
+			get.Street = get.Street.ToLower();
+			get.FullName = get.FullName.ToLower();
+			get.BirthPlace = get.BirthPlace.ToLower();
+			get.Company = get.Company.ToLower();
+
+			IEnumerable<PersonEntity> query = persons;
+
+			if (!string.IsNullOrEmpty(get.FullName))
+			{
+				query = query.Where(p => p.FullName.ToLower().Contains(get.FullName));
+			}
+			if (!string.IsNullOrEmpty(get.BirthPlace))
+			{
+				query = query.Where(p => p.BirthPlace.ToLower().Contains(get.BirthPlace));
+			}
+			if (!string.IsNullOrEmpty(get.Street))
+			{
+				query = query.Where(p => p.Address.Street.ToLower().Contains(get.Street));
+			}
+			if (!string.IsNullOrEmpty(get.Company))
+			{
+				query = query.Where(p => p.Company.Name.ToLower().Contains(get.Company));
+			}
+			if (get.Gender.HasValue)
+			{
+				query = query.Where(p => p.Gender == get.Gender);
+			}
+			if (get.CompanyId.HasValue)
+			{
+				query = query.Where(p => p.CompanyId == get.CompanyId);
+			}
+			if (get.AddressId.HasValue)
+			{
+				query = query.Where(p => p.AddressId== get.AddressId);
+			}
+
+			return query.ToList();
+		}
+
+		public async Task<PersonEntity?> WildCard()
+		{
+			int recordCount = _postgreSQL.Persons.Count();
+
+			var seed = Convert.ToInt32(Regex.Match(Guid.NewGuid().ToString(), @"\d+").Value);
+
+			Random random = new(seed);
+
+			int randomNumber = random.Next(1, recordCount);
+
+			PersonEntity? person = await Get(randomNumber);
+
+			return person;
 		}
 	}
 }
