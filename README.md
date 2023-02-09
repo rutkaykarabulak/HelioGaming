@@ -3,6 +3,7 @@ REST API project for fun
 
 
 Implement an application in C# \ .Net to manage the following two entities: companies and persons.
+
 Company
 - Add
 o Company Name (string) (Unique)
