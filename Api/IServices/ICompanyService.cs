@@ -37,7 +37,5 @@ namespace HelioGaming.Api.IServices
 		/// <param name="id"></param>
 		/// <returns>True, if removal is successfull, false otherwise</returns>
 		public abstract bool Remove(int id);
-
-		// Update TODO
 	}
 }

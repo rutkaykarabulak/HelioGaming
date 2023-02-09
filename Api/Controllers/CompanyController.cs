@@ -84,5 +84,10 @@ namespace HelioGaming.Api.Controllers
 		{
 			companyService = new CompanyService(postgreSQL);
 		}
+
+		public CompanyController(ICompanyService companyService)
+		{
+			this.companyService = companyService;
+		}
 	}
 }

@@ -27,7 +27,5 @@ namespace HelioGaming.Api.IServices
 		/// <param name="id"></param>
 		/// <returns>True if removal is successfull, false otherwise</returns>
 		public abstract Task<bool> Remove(int id);
-
-		//public abstract Task<AddressEntity> Update(AddressEntity address); TODO
 	}
 }
