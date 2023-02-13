@@ -19,7 +19,7 @@ namespace HelioGamingUnit
 		public PersonServiceTest()
 		{
 			_personService = new PersonServiceUnit();
-			_controller = new PersonController(_personService);
+			_controller = new PersonController(null, _personService);
 		}
 		
 		/// <summary>

@@ -3,6 +3,8 @@ using HelioGaming.Api.IServices;
 using HelioGaming.Models;
 using HelioGaming.Models.DbModels;
 using HelioGaming.Models.EntityModels;
+using Microsoft.EntityFrameworkCore;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace HelioGaming.Api.Services
 {
@@ -35,8 +37,10 @@ namespace HelioGaming.Api.Services
 
 		public async Task<CompanyEntity?> Get(int id)
 		{
-			Company? _company = await _postgreSQL.Companies.FindAsync(id);
-
+			IQueryable<Company> query = this._postgreSQL.Companies.AsNoTracking()
+												.Include(c => c.Employees)
+												.AsSplitQuery();
+			Company _company = query.Where(c => c.Id == id).FirstOrDefault();
 			if (_company == null)
 			{
 				return null;
@@ -44,7 +48,7 @@ namespace HelioGaming.Api.Services
 
 			Address? _address = _postgreSQL.Addresses.Where(a => a.Id.Equals(_company.AddressId)).FirstOrDefault();
 			
-
+			
 			AddressEntity? address = null;
 			if (_address != null)
 			{
@@ -57,6 +61,7 @@ namespace HelioGaming.Api.Services
 					Type = _address.Type
 				};
 			}
+		
 			CompanyEntity company = new()
 			{
 				Id = _company.Id,
@@ -66,7 +71,7 @@ namespace HelioGaming.Api.Services
 				Number = _company.Number,
 				AddressId = _company.AddressId,
 				Address = _address,
-				EmployeeCount = _company.EmployeeCount
+				EmployeeCount = _company.Employees.Count()
 			};
 
 			return company;
@@ -74,7 +79,9 @@ namespace HelioGaming.Api.Services
 
 		public IEnumerable<CompanyEntity> GetAll()
 		{
-			List<Company> _companies = _postgreSQL.Companies.ToList();
+			List<Company> _companies = this._postgreSQL.Companies.AsNoTracking()
+												.Include(c => c.Employees)
+												.AsSplitQuery().ToList();
 			List<Address> _addresses = _postgreSQL.Addresses.ToList();
 			List<CompanyEntity> companies = new();
 
@@ -86,7 +93,8 @@ namespace HelioGaming.Api.Services
 				DateOfRegistration = c.DateOfRegistration,
 				Number = c.Number,
 				PhoneNumber = c.PhoneNumber,
-				EmployeeCount = c.EmployeeCount,
+				Employees = c.Employees,
+				EmployeeCount = c.Employees.Count(),
 				Address = _addresses.Where(a => a.Id.Equals(c.AddressId)).FirstOrDefault()
 			})) ;
 

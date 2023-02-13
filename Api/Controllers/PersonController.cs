@@ -103,13 +103,13 @@ namespace HelioGaming.Api.Controllers
 
 			return Ok(isRemoved);
 		}
-		public PersonController(EFDataContext postgreSQL)
+		public PersonController(EFDataContext postgreSQL, IPersonService service)
 		{
 			personService = new PersonService(postgreSQL);
-		}
-		public PersonController(IPersonService service)
-		{
-			personService = service;
+			if (service != null)
+			{
+				personService = service;
+			}
 		}
 	}
 }

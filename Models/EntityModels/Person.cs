@@ -26,8 +26,10 @@ namespace HelioGaming.Models.EntityModels
 		[ForeignKey("AddressId")]
 		public int AddressId { get; set; }
 		
-		[ForeignKey("CompanyId")]
 		public int CompanyId { get; set; }
+
+		[ForeignKey("CompanyId")]
+		public virtual Company Company { get; set; }
 
 		[DefaultValue(2)]
 		public Gender Gender { get; set; }

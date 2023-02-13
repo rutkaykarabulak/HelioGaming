@@ -31,5 +31,8 @@ namespace HelioGaming.Models.EntityModels
 		public string PhoneNumber { get; set; } = string.Empty;
 		public int EmployeeCount { get; set; } = 0;
 
+		[InverseProperty(Constants.CompanyTable)]
+		public virtual ICollection<Person> Employees { get; set; }
+
 	}
 }
