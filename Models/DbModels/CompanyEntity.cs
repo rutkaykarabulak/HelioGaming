@@ -50,5 +50,10 @@ namespace HelioGaming.Models.DbModels
 		/// Number of person who works in this company
 		/// </summary>
 		public int EmployeeCount { get; set; } = 0;
+
+		/// <summary>
+		/// Employees of company
+		/// </summary>
+		public ICollection<Person> Employees { get; set; }
 	}
 }

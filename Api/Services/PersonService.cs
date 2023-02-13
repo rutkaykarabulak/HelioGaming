@@ -35,11 +35,13 @@ namespace HelioGaming.Api.Services
 			{
 				Company? company = _postgreSQL.Companies.Find(person.CompanyId);
 
-				if (company != null)
-				{
-					company.EmployeeCount++;
-					_postgreSQL.Update(company);
-				}
+				// do not need anymore, we calculate employee count on fly now.
+
+				//if (company != null)
+				//{
+				//	company.EmployeeCount++;
+				//	_postgreSQL.Update(company);
+				//} 
 			}
 
 			_postgreSQL.Add(entity);

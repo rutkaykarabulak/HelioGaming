@@ -80,14 +80,13 @@ namespace HelioGaming.Api.Controllers
 			return Ok(isRemoved);
 		}
 
-		public CompanyController(EFDataContext postgreSQL)
-		{
+		public CompanyController(EFDataContext postgreSQL, ICompanyService companyService)
+		{	
 			companyService = new CompanyService(postgreSQL);
-		}
-
-		public CompanyController(ICompanyService companyService)
-		{
-			this.companyService = companyService;
+			if (companyService != null)
+			{
+				this.companyService = companyService;
+			}
 		}
 	}
 }
