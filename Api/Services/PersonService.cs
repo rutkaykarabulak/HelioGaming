@@ -154,12 +154,16 @@ namespace HelioGaming.Api.Services
 
 		public async Task<PersonEntity?> WildCard()
 		{
+			// Get the count of entities in the table
 			int recordCount = _postgreSQL.Persons.Count();
 
+			// Generate a random index between 0 and the number of entities in the table
 			int randomIndex = new Random().Next(recordCount);
-
+			
+			// Get the entity at the random index using Skip() and Take() LINQ methods
 			Person randomPerson = _postgreSQL.Persons.OrderBy(e => e.Id).Skip(randomIndex).Take(1).FirstOrDefault();
 
+			// Create a new person entity to return
 			PersonEntity person = new PersonEntity()
 			{
 				Id = randomPerson.Id,
