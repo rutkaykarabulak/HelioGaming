@@ -156,13 +156,18 @@ namespace HelioGaming.Api.Services
 		{
 			int recordCount = _postgreSQL.Persons.Count();
 
-			var seed = Convert.ToInt32(Regex.Match(Guid.NewGuid().ToString(), @"\d+").Value);
+			int randomIndex = new Random().Next(recordCount);
 
-			Random random = new(seed);
+			Person randomPerson = _postgreSQL.Persons.OrderBy(e => e.Id).Skip(randomIndex).Take(1).FirstOrDefault();
 
-			int randomNumber = random.Next(1, recordCount);
-
-			PersonEntity? person = await Get(randomNumber);
+			PersonEntity person = new PersonEntity()
+			{
+				Id = randomPerson.Id,
+				FullName = randomPerson.FullName,
+				BirthPlace = randomPerson.BirthPlace,
+				Gender = randomPerson.Gender,
+				CompanyId = randomPerson.CompanyId
+			};
 
 			return person;
 		}
