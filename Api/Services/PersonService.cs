@@ -161,7 +161,7 @@ namespace HelioGaming.Api.Services
 			int randomIndex = new Random().Next(recordCount);
 			
 			// Get the entity at the random index using Skip() and Take() LINQ methods
-			Person randomPerson = _postgreSQL.Persons.OrderBy(e => e.Id).Skip(randomIndex).Take(1).FirstOrDefault();
+			Person randomPerson = _postgreSQL.Persons.OrderBy(e => e.Id).Skip(randomIndex).Take(1).Single();
 
 			// Create a new person entity to return
 			PersonEntity person = new PersonEntity()
